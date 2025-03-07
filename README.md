@@ -14,11 +14,37 @@ to include family members or friends to allow others to share in the fun. This a
 ## Installation Steps
 
 To install this project, you will want to follow these instructions in order:
-1. Ensure you have Node.js installed on your local machine. Once Node.js is running, open a new terminal and move to the next step. 
+1. Ensure you have Node.js installed on your local machine. 
+    1. If you don't have Node.js installed, you can download it from [here](https://nodejs.org/en/download).Once Node.js is running, open a new terminal and move to the next step.
 2. Clone the repository by entering 'git clone https://github.com/ericdurban/World-Travel-Tracker.git' in the terminal.
 3. Enter in terminal, 'cd World-Travel-Tracker'. 
 4. Enter in terminal, 'npm install' to ensure all the needed dependencies are added and installed locally. 
 PLEASE NOTE: If you have any issues in later steps running the project, try individually installing dependencies listed on top of index.js file. For example, enter in terminal, 'npm i express' to install express dependency package. 
+5. Install PostgreSQL on your local machine, set up PostgreSQL database and create two tables for the tasks. 
+    1. If you don't have PostgreSQL installed, you can download it from [here](https://www.postgresql.org/download/).
+    2. Create a database for the project by entering the following:
+        CREATE DATABASE travel_tracker;
+    3. Either select the database from PostgreSQL Admin or connect to your database in the terminal by entering the following:
+        \c travel_tracker;
+    1. Please use the following schema to create the 1st table:
+        CREATE TABLE users (
+            id SERIAL PRIMARY KEY,
+            name VARCHAR(255) NOT NULL,
+            color VARCHAR(50) NOT NULL
+        );
+    2. Please use the following schema to create the 2nd table:
+        CREATE TABLE visited_countries (
+            id SERIAL PRIMARY KEY,
+            country_code VARCHAR(10) NOT NULL,
+            user_id INT NOT NULL,
+            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+        );
+    3. Please create an .env file in the root directory and add the database connection detals:
+        DB_HOST=localhost
+        DB_USER=your-db-username
+        DB_PASSWORD=your-db-password
+        DB_NAME=travel_tracker
+        DB_PORT=5432
 5. Enter in terminal, 'npm start'. Your terminal should register the command and provide a message "Server running on port: 3000". 
 
 ## Usage
@@ -47,6 +73,5 @@ This project is free to use for personal, non-commercial purposes only. You may 
 
 ## Acknowledgements
 
-- Thanks to Bootstrap for the great UI Framework.
 - Thanks to Angela Yu and her amazing bootcamp that helped me develop the tools I needed to make this website!
 - Thanks to http://www.w3.org/2000/svg for allowing me to pull their data publicly. 
